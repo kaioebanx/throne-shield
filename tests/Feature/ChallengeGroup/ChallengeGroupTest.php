@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\ChallengeGroup;
 
-use App\Infrastructure\Persistence\Models\Auth\User;
+use App\Auth\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 

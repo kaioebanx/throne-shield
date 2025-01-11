@@ -1,6 +1,6 @@
 <?php
 
-use App\Infrastructure\Http\Middleware\EnsureEmailIsVerified;
+use App\Auth\Http\Middleware\EnsureEmailIsVerified;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
