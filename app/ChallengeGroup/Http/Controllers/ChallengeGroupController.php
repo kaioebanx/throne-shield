@@ -5,43 +5,52 @@ namespace App\ChallengeGroup\Http\Controllers;
 use App\ChallengeGroup\Http\Requests\CreateChallengeGroupRequest;
 use App\ChallengeGroup\Http\Requests\UpdateChallengeGroupRequest;
 use App\ChallengeGroup\Http\Resources\ChallengeGroupResource;
-use App\Shared\Application\ChallengeGroups\DTOs\ChallengeGroupDTO;
-use App\Shared\Application\ChallengeGroups\UseCases\CreateChallengeGroupChallengeGroupUseCase;
-use App\Shared\Application\ChallengeGroups\UseCases\DeleteChallengeGroupUseCase;
-use App\Shared\Application\ChallengeGroups\UseCases\GetChallengeGroupUseCase;
-use App\Shared\Application\ChallengeGroups\UseCases\UpdateChallengeGroupUseCase;
+use App\ChallengeGroup\Persistence\Services\ChallengeGroupService;
 use App\Shared\Http\Controllers\Controller;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
 
 class ChallengeGroupController extends Controller
 {
-    public function create(CreateChallengeGroupRequest $request, CreateChallengeGroupChallengeGroupUseCase $use_case): JsonResponse
+    public function __construct(private readonly ChallengeGroupService $service) {}
+
+    public function create(CreateChallengeGroupRequest $request): JsonResponse
     {
-        $challenge_group = $use_case->execute(auth()->user()->toDTO(), $request->toDTO());
-        return (new ChallengeGroupResource($challenge_group))
-            ->response()
-            ->setStatusCode(201);
+        $challenge_group = $this->service->create($request->toDTO());
+        return response()->json(new ChallengeGroupResource($challenge_group), 201);
     }
 
-    public function get(int $id, GetChallengeGroupUseCase $use_case): JsonResponse
+
+    public function getAll(): JsonResponse
     {
-        $challenge_group = $use_case->execute(auth()->user()->toDTO(), new ChallengeGroupDTO($id));
-        return (new ChallengeGroupResource($challenge_group))
-            ->response()
-            ->setStatusCode(200);
+        $challenge_group = $this->service->getAll();
+        return response()->json(ChallengeGroupResource::collection($challenge_group));
     }
 
-    public function update(UpdateChallengeGroupRequest $request, int $id, UpdateChallengeGroupUseCase $use_case): JsonResponse
+    /**
+     * @throws AuthorizationException
+     */
+    public function getById(int $id): JsonResponse
     {
-        $challenge_group = $use_case->execute(auth()->user()->toDTO(), $request->toDto());
-        return (new ChallengeGroupResource($challenge_group))
-            ->response()
-            ->setStatusCode(200);
+        $challenge_group = $this->service->getById($id);
+        return response()->json(new ChallengeGroupResource($challenge_group));
     }
 
-    public function delete(int $id, DeleteChallengeGroupUseCase $use_case): JsonResponse
+    /**
+     * @throws AuthorizationException
+     */
+    public function update(UpdateChallengeGroupRequest $request): JsonResponse
     {
-        $use_case->execute(auth()->user()->toDTO(), new ChallengeGroupDTO($id));
-        return response()->json()->setStatusCode(200);
+        $challenge_group = $this->service->update($request->toDTO());
+        return response()->json(new ChallengeGroupResource($challenge_group));
+    }
+
+    /**
+     * @throws AuthorizationException
+     */
+    public function delete(int $id): JsonResponse
+    {
+        $this->service->delete($id);
+        return response()->json(status: 204);
     }
 }

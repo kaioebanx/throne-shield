@@ -2,7 +2,7 @@
 
 namespace App\Auth\Http\Controllers;
 
-use App\Auth\Models\User;
+use App\Auth\Persistence\Models\User;
 use App\Shared\Http\Controllers\Controller;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;

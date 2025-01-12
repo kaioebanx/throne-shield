@@ -9,9 +9,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
         return $request->user();
     });
 
-    Route::prefix('challenge-group')->group(function () {
+    Route::prefix('challenge-groups')->group(function () {
+        Route::get('/',  [ChallengeGroupController::class, 'getAll']);
         Route::post('/',  [ChallengeGroupController::class, 'create']);
-        Route::get('/{id}',  [ChallengeGroupController::class, 'get']);
+        Route::get('/{id}',  [ChallengeGroupController::class, 'getById']);
         Route::put('/{id}',  [ChallengeGroupController::class, 'update']);
         Route::delete('/{id}',  [ChallengeGroupController::class, 'delete']);
     });

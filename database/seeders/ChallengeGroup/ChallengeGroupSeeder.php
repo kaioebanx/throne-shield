@@ -2,7 +2,7 @@
 
 namespace Database\Seeders\ChallengeGroup;
 
-use App\ChallengeGroup\Models\ChallengeGroup;
+use App\ChallengeGroup\Persistence\Models\ChallengeGroup;
 use Illuminate\Database\Seeder;
 
 class ChallengeGroupSeeder extends Seeder

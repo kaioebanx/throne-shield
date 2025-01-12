@@ -2,10 +2,10 @@
 
 namespace App\Shared\Providers;
 
-use App\Auth\Models\PersonalAccessTokenWithCache;
-use App\Auth\Repositories\PassportCache\ClientRepositoryWithCache;
-use App\Auth\Repositories\PassportCache\RefreshTokenRepositoryWithCache;
-use App\Auth\Repositories\PassportCache\TokenRepositoryWithCache;
+use App\Auth\Persistence\Models\PersonalAccessTokenWithCache;
+use App\Auth\Persistence\Repositories\PassportCache\ClientRepositoryWithCache;
+use App\Auth\Persistence\Repositories\PassportCache\RefreshTokenRepositoryWithCache;
+use App\Auth\Persistence\Repositories\PassportCache\TokenRepositoryWithCache;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Laravel\Passport\ClientRepository;
 use Laravel\Passport\Passport;

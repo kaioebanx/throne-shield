@@ -2,7 +2,7 @@
 
 namespace App\Shared\Models\UniqueID;
 
-use App\Auth\Models\BaseUser;
+use App\Auth\Persistence\Models\BaseUser;
 
 class UuidUser extends BaseUser
 {

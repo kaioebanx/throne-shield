@@ -2,8 +2,8 @@
 
 namespace Database\Factories\ChallengeGroups;
 
-use App\Auth\Models\User;
-use App\ChallengeGroup\Models\ChallengeGroup;
+use App\Auth\Persistence\Models\User;
+use App\ChallengeGroup\Persistence\Models\ChallengeGroup;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**

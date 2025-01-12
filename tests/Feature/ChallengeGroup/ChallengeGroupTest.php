@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\ChallengeGroup;
 
-use App\Auth\Models\User;
+use App\Auth\Persistence\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -21,7 +21,7 @@ class ChallengeGroupTest extends TestCase
 
         $this->assertAuthenticated();
 
-        $response = $this->post('/api/challenge-group', [
+        $response = $this->post('/api/challenge-groups', [
             'name' => 'Kaio Challenge',
             'end_date' => now()->addDays(7)->toDateString(),
         ]);
@@ -45,14 +45,14 @@ class ChallengeGroupTest extends TestCase
 
         $this->assertAuthenticated();
 
-        $response = $this->post('/api/challenge-group', [
+        $response = $this->post('/api/challenge-groups', [
             'name' => 'Kaio Challenge',
             'end_date' => now()->addDays(7)->toDateString(),
         ]);
 
         $id = $response->json('id');
 
-        $response = $this->put('/api/challenge-group/' . $id, [
+        $response = $this->put('/api/challenge-groups/' . $id, [
             'name' => 'Updated Challenge',
             'end_date' => now()->addDays(10)->toDateString(),
         ]);

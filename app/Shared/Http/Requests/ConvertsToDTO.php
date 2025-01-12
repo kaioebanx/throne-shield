@@ -2,7 +2,7 @@
 
 namespace App\Shared\Http\Requests;
 
-use App\Shared\Application\Shared\DTO;
+use App\Shared\DTO\DTO;
 
 interface ConvertsToDTO
 {
