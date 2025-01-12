@@ -13,13 +13,7 @@ class ChallengeGroupTest extends TestCase
     public function test_authenticated_user_can_create_challenge_group(): void
     {
         $user = User::factory()->create();
-
-        $this->post('/login', [
-            'email' => $user->email,
-            'password' => 'password',
-        ]);
-
-        $this->assertAuthenticated();
+        auth()->setUser($user);
 
         $response = $this->post('/api/challenge-groups', [
             'name' => 'Kaio Challenge',
@@ -36,14 +30,7 @@ class ChallengeGroupTest extends TestCase
     public function test_authenticated_user_can_update_challenge_group(): void
     {
         $user = User::factory()->create();
-
-        // Log in the user
-        $this->post('/login', [
-            'email' => $user->email,
-            'password' => 'password',
-        ]);
-
-        $this->assertAuthenticated();
+        auth()->setUser($user);
 
         $response = $this->post('/api/challenge-groups', [
             'name' => 'Kaio Challenge',
@@ -70,4 +57,16 @@ class ChallengeGroupTest extends TestCase
         ]);
     }
 
+    public function test_get_challenge_group_throw_exception(): void
+    {
+        $user = User::factory()->create();
+        auth()->setUser($user);
+
+        $response = $this->get('/api/challenge-groups/4');
+
+        $response->assertNotFound();
+        $response->assertJson([
+            "message"=> "Challenge group not found."
+        ]);
+    }
 }
